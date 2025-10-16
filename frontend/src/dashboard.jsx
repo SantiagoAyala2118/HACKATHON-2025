@@ -76,13 +76,13 @@ function Dashboard() {
 					className={`nav-btn ${activeTab === 'metas' ? 'active' : ''}`}
 					onClick={() => setActiveTab('metas')}
 				>
-					Metas
+					inversores activos
 				</button>
 				<button
 					className={`nav-btn ${activeTab === 'progreso' ? 'active' : ''}`}
 					onClick={() => setActiveTab('progreso')}
 				>
-					Progreso
+					mis proyectos
 				</button>
 				<button
 					className={`nav-btn ${activeTab === 'perfil' ? 'active' : ''}`}
