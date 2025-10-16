@@ -8,17 +8,15 @@ function Dashboard() {
 	const [user, setUser] = useState(null);
 	const [activeTab, setActiveTab] = useState('inicio');
 
-	// Simular datos del usuario al cargar el componente
 	useEffect(() => {
-		// Intentar obtener datos del usuario desde localStorage o API
+		// api para depue
 		const userData = localStorage.getItem('user');
 		if (userData) {
 			setUser(JSON.parse(userData));
 		} else {
-			// Datos de ejemplo si no hay usuario en localStorage
 			setUser({
-				name: 'Usuario Ejemplo',
-				email: 'usuario@ejemplo.com',
+				name: 'Usuario',
+				email: 'usuario@gmail.com',
 				joinDate: '2024-01-15',
 			});
 		}
@@ -32,7 +30,6 @@ function Dashboard() {
 		navigate('/');
 	};
 
-	// Datos de ejemplo para las tarjetas
 	const stats = [
 		{ title: 'Tareas Completadas', value: '12', icon: '', color: 'green' },
 		{ title: 'Metas Activas', value: '5', icon: '', color: 'blue' },
@@ -49,7 +46,6 @@ function Dashboard() {
 
 	return (
 		<div className="dashboard">
-			{/* Header */}
 			<header className="dashboard-header">
 				<div className="header-left">
 					<h1>Mi Dashboard</h1>
@@ -69,7 +65,6 @@ function Dashboard() {
 				</div>
 			</header>
 
-			{/* Navegación */}
 			<nav className="dashboard-nav">
 				<button
 					className={`nav-btn ${activeTab === 'inicio' ? 'active' : ''}`}
@@ -97,9 +92,7 @@ function Dashboard() {
 				</button>
 			</nav>
 
-			{/* Contenido Principal */}
 			<main className="dashboard-main">
-				{/* Sección de Estadísticas */}
 				{activeTab === 'inicio' && (
 					<div className="tab-content">
 						<h2>Resumen General</h2>
@@ -117,7 +110,6 @@ function Dashboard() {
 						</div>
 
 						<div className="content-grid">
-							{/* Actividad Reciente */}
 							<div className="activity-card">
 								<h3> Actividad Reciente</h3>
 								<div className="activity-list">
