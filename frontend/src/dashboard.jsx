@@ -82,7 +82,7 @@ function Dashboard() {
 					className={`nav-btn ${activeTab === 'progreso' ? 'active' : ''}`}
 					onClick={() => setActiveTab('progreso')}
 				>
-					mis proyectos
+					proyectos
 				</button>
 				<button
 					className={`nav-btn ${activeTab === 'perfil' ? 'active' : ''}`}
@@ -95,7 +95,7 @@ function Dashboard() {
 			<main className="dashboard-main">
 				{activeTab === 'inicio' && (
 					<div className="tab-content">
-						<h2>Resumen General</h2>
+						<h2>Emprendedores</h2>
 
 						<div className="stats-grid">
 							{stats.map((stat, index) => (
@@ -111,7 +111,7 @@ function Dashboard() {
 
 						<div className="content-grid">
 							<div className="activity-card">
-								<h3> Actividad Reciente</h3>
+								<h3> Actividad Reciente de emprendedores</h3>
 								<div className="activity-list">
 									{recentActivities.map((activity, index) => (
 										<div key={index} className="activity-item">
