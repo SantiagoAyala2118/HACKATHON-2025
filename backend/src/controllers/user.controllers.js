@@ -1,54 +1,67 @@
 import { matchedData } from "express-validator";
 import UserModel from "../models/user.model.js";
 import { hashPassword } from "../helpers/bcrypt.helper.js";
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 import { signToken } from "../helpers/jwt.helper.js";
 import { cookieConfig } from "../config/cookieConfig.js";
 
-export const register = async(req, res)=>{
-    const validatedData = matchedData(req)
-    
-    try {
+export const register = async (req, res) => {
+  const validatedData = matchedData(req);
 
-        validatedData.password = await hashPassword(validatedData.password)
+  try {
+    validatedData.password = await hashPassword(validatedData.password);
 
-        const newUser = new UserModel(validatedData)
+    const newUser = new UserModel(validatedData);
 
-        res.status(201).json({ok: true, msg: "Te has registrado exitosamente!"})
-    } catch (e) {
-        if(e.code === 11000)
-            res.status(400).json({ok: false, msg: `Ese ${Object.keys(e.keyValue)} ya se encuentra en uso.`})
-        res.status(500).json({ok: false, msg: "error interno del servidor"})
-    }
-}
+    res.status(201).json({ ok: true, msg: "Te has registrado exitosamente!" });
+  } catch (e) {
+    if (e.code === 11000)
+      res.status(400).json({
+        ok: false,
+        msg: `Ese ${Object.keys(e.keyValue)} ya se encuentra en uso.`,
+      });
+    res.status(500).json({ ok: false, msg: "error interno del servidor" });
+  }
+};
 
-export const login = async(req, res)=>{
-    
-    const {email, password} = matchedData(req)
-    
-    try {
-        const user = await UserModel.findOne({email})
+export const login = async (req, res) => {
+  const { email, password } = matchedData(req);
 
-        if(!user) return res.status(404).json({ok: false, msg: "Ese usuario no existe."})
+  try {
+    const user = await UserModel.findOne({ email });
 
-        if(!await bcrypt.compare(password, user.password))
-            res.status(401).json({ok: false, msg: "La contraseña es incorrecta"})
+    if (!user)
+      return res.status(404).json({ ok: false, msg: "Ese usuario no existe." });
 
-        const payload = {
-            sub: user._id,
-            nombre: user.name,
-            rol: user.role
-        }
+    if (!(await bcrypt.compare(password, user.password)))
+      res.status(401).json({ ok: false, msg: "La contraseña es incorrecta" });
 
-        const token = signToken(payload)
+    const payload = {
+      sub: user._id,
+      nombre: user.name,
+      rol: user.role,
+    };
 
-        res.cookie("token", token, cookieConfig)
+    const token = signToken(payload);
 
-        const {password, ...secureUser} = user._doc
+    res.cookie("token", token, cookieConfig);
 
-        res.status(200).json({ok: true, msg: "Sesión iniciada exitosamente!", data: secureUser})
+    const { password, ...secureUser } = user._doc;
 
-    } catch (e) {
-        res.status(500).json({ok: false, msg: "error interno del servidor"})
-    }
-}
+    res.status(200).json({
+      ok: true,
+      msg: "Sesión iniciada exitosamente!",
+      data: secureUser,
+    });
+  } catch (e) {
+    res.status(500).json({ ok: false, msg: "error interno del servidor" });
+  }
+};
+
+export const logout = async (req, res) => {
+  try {
+    res.clearCookie("token");
+  } catch (e) {
+    res.status(500).json({ ok: false, msg: "error interno del servidor" });
+  }
+};
