@@ -9,7 +9,8 @@ function App() {
 		<Router>
 			<div className="App">
 				<Routes>
-					<Route path="/" element={<Dashboard />} />
+					<Route path="/" element={<Landing />} />
+					<Route path="/login" element={<AuthForm />} />
 					<Route path="/dashboard" element={<Dashboard />} />
 				</Routes>
 			</div>

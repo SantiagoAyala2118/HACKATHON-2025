@@ -55,11 +55,6 @@ function AuthForm() {
 					setMsg(' ¡Login exitoso! Redirigiendo...');
 					console.log('Respuesta del servidor:', data);
 
-					// Guardar el token en localStorage si viene en la respuesta
-					if (data.token) {
-						localStorage.setItem('token', data.token);
-					}
-
 					// Redirigir usando navigate
 					setTimeout(() => {
 						navigate('/dashboard');

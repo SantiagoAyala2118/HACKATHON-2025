@@ -2,6 +2,10 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './landing.css';
 
+const handleDireccion = () => {
+	window.location.href = '/login'; // Redirige a la página de login
+};
+
 export const Landing = () => {
 	const navigate = useNavigate();
 
@@ -55,7 +59,7 @@ export const Landing = () => {
 						<div className="logo"></div>
 						<span className="logo-text">FondApp</span>
 					</div>
-					<button className="login-btn" onClick={handleLogin}>
+					<button className="login-btn" onClick={handleDireccion}>
 						Iniciar Sesión
 					</button>
 				</div>
