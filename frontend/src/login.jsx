@@ -7,7 +7,6 @@ function AuthForm() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [name, setName] = useState('');
-	const [username, setUsername] = useState('');
 	const [msg, setMsg] = useState('');
 	const [loading, setLoading] = useState(false);
 
@@ -19,7 +18,6 @@ function AuthForm() {
 		setName('');
 		setEmail('');
 		setPassword('');
-		setUsername('');
 		setMsg('');
 	};
 
@@ -49,7 +47,7 @@ function AuthForm() {
 				const data = await response.json();
 
 				if (response.ok) {
-					setMsg('✅ ¡Login exitoso! Redirigiendo...');
+					setMsg(' ¡Login exitoso! Redirigiendo...');
 					console.log('Respuesta del servidor:', data);
 
 					// Guardar el token en localStorage si viene en la respuesta
@@ -62,12 +60,11 @@ function AuthForm() {
 						navigate('/dashboard');
 					}, 1500);
 				} else {
-					setMsg(`❌ Error: ${data.msg || 'Credenciales incorrectas'}`);
+					setMsg(`Error: ${data.msg || 'Credenciales incorrectas'}`);
 				}
 			} else {
 				// Lógica de Registro
 				const userData = {
-					username: username,
 					email: email,
 					password: password,
 					nombre: name,
@@ -86,16 +83,16 @@ function AuthForm() {
 				const data = await response.json();
 
 				if (response.ok) {
-					setMsg('✅ ¡Usuario registrado exitosamente!');
+					setMsg(' ¡Usuario registrado exitosamente!');
 					console.log('Respuesta del servidor:', data);
 					setTimeout(() => setIsLoginView(true), 2000);
 				} else {
-					setMsg(`❌ Error: ${data.msg || 'Error en el registro'}`);
+					setMsg(` Error: ${data.msg || 'Error en el registro'}`);
 				}
 			}
 		} catch (error) {
 			console.error('Error en la petición:', error);
-			setMsg('❌ Error de conexión con el servidor');
+			setMsg(' Error de conexión con el servidor');
 		} finally {
 			setLoading(false);
 		}
@@ -119,17 +116,6 @@ function AuthForm() {
 								id="name"
 								value={name}
 								onChange={(e) => setName(e.target.value)}
-								required
-								disabled={loading}
-							/>
-						</div>
-						<div className="input-group">
-							<label htmlFor="username">Username</label>
-							<input
-								type="text"
-								id="username"
-								value={username}
-								onChange={(e) => setUsername(e.target.value)}
 								required
 								disabled={loading}
 							/>
