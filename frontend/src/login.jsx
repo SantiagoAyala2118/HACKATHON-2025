@@ -10,6 +10,11 @@ function AuthForm() {
 	const [msg, setMsg] = useState('');
 	const [loading, setLoading] = useState(false);
 
+	const [isOn, setIsOn] = useState(false);
+	const handleToggle = () => {
+		setIsOn(!isOn);
+	};
+
 	// Usa useNavigate en lugar de window.location.href
 	const navigate = useNavigate();
 
@@ -102,11 +107,9 @@ function AuthForm() {
 		<div className="auth-container">
 			<form className="auth-form" onSubmit={handleSubmit}>
 				<h2>{isLoginView ? 'Iniciar Sesión' : 'Crear Cuenta'}</h2>
-
 				{msg && (
 					<div className={`msg ${msg.includes('✅') ? 'success' : 'error'}`}>{msg}</div>
 				)}
-
 				{!isLoginView && (
 					<>
 						<div className="input-group">
@@ -122,7 +125,14 @@ function AuthForm() {
 						</div>
 					</>
 				)}
-
+				{!isLoginView && (
+					<div>
+						<button type="button" onClick={handleToggle}>
+							{isOn ? 'ON' : 'OFF'}
+						</button>
+						<p>El interruptor está: {isOn ? 'Encendido' : 'Apagado'}</p>
+					</div>
+				)}
 				<div className="input-group">
 					<label htmlFor="email">Correo Electrónico</label>
 					<input
@@ -149,7 +159,6 @@ function AuthForm() {
 				<button type="submit" className="auth-button" disabled={loading}>
 					{loading ? 'Cargando...' : isLoginView ? 'Ingresar' : 'Registrarse'}
 				</button>
-
 				<div className="toggle-view">
 					{isLoginView ? (
 						<p>
