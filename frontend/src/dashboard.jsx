@@ -7,6 +7,10 @@ function Dashboard() {
 	const navigate = useNavigate();
 	const [user, setUser] = useState(null);
 	const [activeTab, setActiveTab] = useState('inicio');
+	const [buttonadd, setButtonadd] = useState(false);
+
+	const [newProjectTitle, setNewProjectTitle] = useState('');
+	const [newProjectDesc, setNewProjectDesc] = useState('');
 
 	useEffect(() => {
 		// api para depue
@@ -171,7 +175,84 @@ function Dashboard() {
 					<div className="tab-content">
 						<h2> Mis proyectos</h2>
 						<p>Visualiza tus proyectos </p>
+						<button className="edit-profile-btn" onClick={() => setButtonadd(true)}>
+							Crear nuevo proyecto
+						</button>
 						<div className="placeholder-content">
+							{buttonadd && (
+								<div
+									className="project-card"
+									style={{
+										border: '1px solid #ccc',
+										padding: '12px',
+										margin: '10px',
+										borderRadius: '8px',
+										backgroundColor: '#fff',
+										maxWidth: '480px',
+									}}
+								>
+									<input
+										type="text"
+										placeholder="Título del proyecto"
+										value={newProjectTitle}
+										onChange={(e) => setNewProjectTitle(e.target.value)}
+										className="project-input"
+										style={{
+											width: '100%',
+											padding: '10px',
+											marginBottom: '8px',
+											fontSize: '16px',
+											borderRadius: '6px',
+											border: '1px solid #ccc',
+										}}
+									/>
+									<textarea
+										placeholder="Describe tu proyecto..."
+										value={newProjectDesc}
+										onChange={(e) => setNewProjectDesc(e.target.value)}
+										className="project-textarea"
+										style={{
+											width: '100%',
+											minHeight: '120px',
+											padding: '10px',
+											fontSize: '15px',
+											borderRadius: '6px',
+											border: '1px solid #ccc',
+										}}
+									/>
+									<div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
+										<button
+											className="edit-profile-btn"
+											type="button"
+											onClick={() => {
+												console.log('Nuevo proyecto:', {
+													title: newProjectTitle,
+													description: newProjectDesc,
+												});
+												// limpiar / cerrar
+												setNewProjectTitle('');
+												setNewProjectDesc('');
+												setButtonadd(false);
+											}}
+											style={{ padding: '8px 12px', borderRadius: '6px' }}
+										>
+											Guardar
+										</button>
+										<button
+											className="edit-profile-btn"
+											type="button"
+											onClick={() => {
+												setNewProjectTitle('');
+												setNewProjectDesc('');
+												setButtonadd(false);
+											}}
+											style={{ padding: '8px 12px', borderRadius: '6px' }}
+										>
+											Cancelar
+										</button>
+									</div>
+								</div>
+							)}
 							<p> Funcionalidad de proyectos en desarrollo...</p>
 						</div>
 					</div>
