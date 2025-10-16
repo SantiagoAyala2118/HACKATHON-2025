@@ -15,7 +15,7 @@ function Dashboard() {
 			setUser(JSON.parse(userData));
 		} else {
 			setUser({
-				name: 'Usuario',
+				name: 'Axel',
 				email: 'usuario@gmail.com',
 				joinDate: '2024-01-15',
 			});
@@ -31,17 +31,17 @@ function Dashboard() {
 	};
 
 	const stats = [
-		{ title: 'Tareas Completadas', value: '12', icon: '', color: 'green' },
-		{ title: 'Metas Activas', value: '5', icon: '', color: 'blue' },
-		{ title: 'Logros', value: '8', icon: '', color: 'orange' },
-		{ title: 'Días Consecutivos', value: '15', icon: '', color: 'red' },
+		{ title: 'Inversores interesados', value: '12', icon: '', color: 'green' },
+		{ title: 'Inversores Activos', value: '5', icon: '', color: 'blue' },
+		{ title: 'casos concretados', value: '8', icon: '', color: 'orange' },
+		{ title: 'valoracion', value: '4,5/5', icon: '', color: 'red' },
 	];
 
 	const recentActivities = [
-		{ action: 'Completaste una tarea', time: 'Hace 2 horas', icon: '' },
-		{ action: 'Agregaste nueva meta', time: 'Hace 1 día', icon: '' },
-		{ action: 'Logro desbloqueado', time: 'Hace 2 días', icon: '' },
-		{ action: 'Perfil actualizado', time: 'Hace 3 días', icon: '' },
+		{ action: 'Un inversor vio tu perfil', time: 'Hace 2 horas', icon: '' },
+		{ action: 'Un inversor guardó tu proyecto', time: 'Hace 1 día', icon: '' },
+		{ action: 'Un inversor comentó en tu proyecto', time: 'Hace 2 días', icon: '' },
+		{ action: 'Un inversor compartió tu proyecto', time: 'Hace 3 días', icon: '' },
 	];
 
 	return (
@@ -49,7 +49,7 @@ function Dashboard() {
 			<header className="dashboard-header">
 				<div className="header-left">
 					<h1>Mi Dashboard</h1>
-					<p>Bienvenido de vuelta{user ? `, ${user.name}` : ''}!</p>
+					<p>Bienvenido{user ? `, ${user.name}` : ''}!</p>
 				</div>
 				<div className="header-right">
 					<div className="user-info">
@@ -76,13 +76,13 @@ function Dashboard() {
 					className={`nav-btn ${activeTab === 'metas' ? 'active' : ''}`}
 					onClick={() => setActiveTab('metas')}
 				>
-					Metas
+					inversores activos
 				</button>
 				<button
 					className={`nav-btn ${activeTab === 'progreso' ? 'active' : ''}`}
 					onClick={() => setActiveTab('progreso')}
 				>
-					Progreso
+					proyectos
 				</button>
 				<button
 					className={`nav-btn ${activeTab === 'perfil' ? 'active' : ''}`}
@@ -95,7 +95,7 @@ function Dashboard() {
 			<main className="dashboard-main">
 				{activeTab === 'inicio' && (
 					<div className="tab-content">
-						<h2>Resumen General</h2>
+						<h2>Emprendedores</h2>
 
 						<div className="stats-grid">
 							{stats.map((stat, index) => (
@@ -127,28 +127,28 @@ function Dashboard() {
 
 							{/* Metas Próximas */}
 							<div className="goals-card">
-								<h3>Metas Próximas</h3>
+								<h3>Por concretarse </h3>
 								<div className="goals-list">
 									<div className="goal-item">
 										<div className="goal-progress">
 											<div className="progress-bar" style={{ width: '75%' }}></div>
 										</div>
-										<p>Completar curso de React</p>
+										<p>Cierre de negocio con inversor X</p>
 										<small>75% completado</small>
 									</div>
 									<div className="goal-item">
 										<div className="goal-progress">
 											<div className="progress-bar" style={{ width: '30%' }}></div>
 										</div>
-										<p>Leer 10 libros este año</p>
+										<p>Presentación a inversores</p>
 										<small>30% completado</small>
 									</div>
 									<div className="goal-item">
 										<div className="goal-progress">
-											<div className="progress-bar" style={{ width: '90%' }}></div>
+											<div className="progress-bar" style={{ width: '100%' }}></div>
 										</div>
-										<p>Rutina de ejercicio semanal</p>
-										<small>90% completado</small>
+										<p>Proyecto entregado</p>
+										<small>100% completado</small>
 									</div>
 								</div>
 							</div>
@@ -159,20 +159,20 @@ function Dashboard() {
 				{/* Otras pestañas */}
 				{activeTab === 'metas' && (
 					<div className="tab-content">
-						<h2>Mis Metas</h2>
-						<p>Gestiona todas tus metas y objetivos aquí.</p>
+						<h2>Inversores Activos</h2>
+						<p>Gestiona los inversores aquí.</p>
 						<div className="placeholder-content">
-							<p> Funcionalidad de metas en desarrollo...</p>
+							<p> Funcionalidad de inversores en desarrollo...</p>
 						</div>
 					</div>
 				)}
 
 				{activeTab === 'progreso' && (
 					<div className="tab-content">
-						<h2> Mi Progreso</h2>
-						<p>Visualiza tu progreso y estadísticas.</p>
+						<h2> Mis proyectos</h2>
+						<p>Visualiza tus proyectos </p>
 						<div className="placeholder-content">
-							<p> Gráficos y estadísticas en desarrollo...</p>
+							<p> Funcionalidad de proyectos en desarrollo...</p>
 						</div>
 					</div>
 				)}
@@ -195,7 +195,7 @@ function Dashboard() {
 
 			{/* Footer */}
 			<footer className="dashboard-footer">
-				<p>© 2024 Mi App - Todos los derechos reservados</p>
+				<p>© 2025 fondeAr - Todos los derechos reservados</p>
 			</footer>
 		</div>
 	);
