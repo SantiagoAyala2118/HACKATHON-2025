@@ -1,5 +1,6 @@
 import { matchedData, param } from "express-validator";
 import { ProjectModel } from "../models/project.model.js";
+import UserModel from "../models/user.model.js";
 
 export const createProject = async(req, res)=>{
     
@@ -16,6 +17,10 @@ export const createProject = async(req, res)=>{
         const newProject = new ProjectModel(validatedData)
 
         await newProject.save()
+
+        await UserModel.findByIdAndDelete(userData.sub, {
+            $push: {projects: newProject._id}
+        })
 
         res.status(201).json({ok: true, msg: "Proyecto lanzado!", data: newProject})
 
