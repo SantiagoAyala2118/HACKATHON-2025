@@ -10,9 +10,9 @@ function AuthForm() {
 	const [msg, setMsg] = useState('');
 	const [loading, setLoading] = useState(false);
 
-	const [isOn, setIsOn] = useState(false);
+	const [selectedOption, setSelectedOption] = useState('opcion1');
 	const handleToggle = () => {
-		setIsOn(!isOn);
+		setSelectedOption((prev) => (prev === 'opcion1' ? 'opcion2' : 'opcion1'));
 	};
 
 	// Usa useNavigate en lugar de window.location.href
@@ -111,6 +111,21 @@ function AuthForm() {
 					<div className={`msg ${msg.includes('✅') ? 'success' : 'error'}`}>{msg}</div>
 				)}
 				{!isLoginView && (
+					<div className="input-group">
+						<select
+							id="selectOption"
+							className="auth-input"
+							value={selectedOption}
+							onChange={(e) => setSelectedOption(e.target.value)}
+							disabled={loading}
+						>
+							<option value="opcion1">Seleccione un rol</option>
+							<option value="opcion2">Inversor</option>
+							<option value="opcion3">Emprendedor</option>
+						</select>
+					</div>
+				)}
+				{!isLoginView && (
 					<>
 						<div className="input-group">
 							<label htmlFor="name">Nombre</label>
@@ -124,14 +139,6 @@ function AuthForm() {
 							/>
 						</div>
 					</>
-				)}
-				{!isLoginView && (
-					<div>
-						<button type="button" onClick={handleToggle}>
-							{isOn ? 'ON' : 'OFF'}
-						</button>
-						<p>El interruptor está: {isOn ? 'Encendido' : 'Apagado'}</p>
-					</div>
 				)}
 				<div className="input-group">
 					<label htmlFor="email">Correo Electrónico</label>
