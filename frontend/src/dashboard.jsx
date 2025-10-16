@@ -111,7 +111,7 @@ function Dashboard() {
 
 						<div className="content-grid">
 							<div className="activity-card">
-								<h3> Actividad Reciente</h3>
+								<h3>Actividad Reciente</h3>
 								<div className="activity-list">
 									{recentActivities.map((activity, index) => (
 										<div key={index} className="activity-item">

@@ -67,7 +67,7 @@ function AuthForm() {
 				const userData = {
 					email: email,
 					password: password,
-					nombre: name,
+					nombre_completo: name,
 				};
 
 				console.log('Objeto de Registro:', userData);
