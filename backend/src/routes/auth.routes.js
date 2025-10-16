@@ -1,12 +1,8 @@
 import { Router } from "express";
-<<<<<<< HEAD
 //* CONTROLADORES
 import { login, logout, register } from "../controllers/auth.controllers.js";
 
 //* MIDDLEWARES
-=======
-import { login, logout, register } from "../controllers/auth.controllers.js";
->>>>>>> origin/dev-matu
 import { authMiddleware } from "../middlewares/authMiddleware.js";
 import {
   registerValidations,

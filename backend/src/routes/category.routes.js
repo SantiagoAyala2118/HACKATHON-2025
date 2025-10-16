@@ -15,3 +15,5 @@ categoryRoutes.post(
   validator,
   addCategory
 );
+import { authMiddleware } from "../middlewares/authMiddleware.js";
+import { addCategory } from "../controllers/category.controllers.js";
