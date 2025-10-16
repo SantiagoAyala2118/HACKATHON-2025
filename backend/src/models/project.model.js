@@ -43,7 +43,7 @@ const ProjectSchema = new Schema(
     status: {
       //* Estado del proyecto actual
       type: String,
-      enum: ["Buscando", "Financiado", "Cerrado"],
+      enum: ["Buscando", "Financiado"],
       default: "Buscando",
     },
     category: {
@@ -66,4 +66,4 @@ const ProjectSchema = new Schema(
   }
 );
 
-const ProjectModel = model("Project", ProjectSchema);
+export const ProjectModel = model("Project", ProjectSchema);
