@@ -31,71 +31,42 @@ function AuthForm() {
 
 		try {
 			if (isLoginView) {
-				// Lógica de Login
-				const loginData = {
-					email: email,
-					password: password,
-				};
-
+				const loginData = { email, password };
 				console.log('Objeto de Login:', loginData);
-
 				const response = await fetch('http://localhost:3000/api/auth/login', {
 					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
+					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify(loginData),
 				});
-
 				const data = await response.json();
-
 				if (response.ok) {
-					setMsg(' ¡Login exitoso! Redirigiendo...');
-					console.log('Respuesta del servidor:', data);
-
-					// Guardar el token en localStorage si viene en la respuesta
-					if (data.token) {
-						localStorage.setItem('token', data.token);
-					}
-
-					// Redirigir usando navigate
+					setMsg('✅ ¡Login exitoso! Redirigiendo...');
+					if (data.token) localStorage.setItem('token', data.token);
 					setTimeout(() => {
 						navigate('/dashboard');
 					}, 1500);
 				} else {
-					setMsg(`Error: ${data.msg || 'Credenciales incorrectas'}`);
+					setMsg(`❌ Error: ${data.msg || 'Credenciales incorrectas'}`);
 				}
 			} else {
-				// Lógica de Registro
-				const userData = {
-					email: email,
-					password: password,
-					nombre: name,
-				};
-
+				const userData = { email, password, nombre: name, rol: selectedOption };
 				console.log('Objeto de Registro:', userData);
-
 				const response = await fetch('http://localhost:3000/api/auth/register', {
 					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
+					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify(userData),
 				});
-
 				const data = await response.json();
-
 				if (response.ok) {
-					setMsg(' ¡Usuario registrado exitosamente!');
-					console.log('Respuesta del servidor:', data);
+					setMsg('✅ ¡Usuario registrado exitosamente!');
 					setTimeout(() => setIsLoginView(true), 2000);
 				} else {
-					setMsg(` Error: ${data.msg || 'Error en el registro'}`);
+					setMsg(`❌ Error: ${data.msg || 'Error en el registro'}`);
 				}
 			}
 		} catch (error) {
 			console.error('Error en la petición:', error);
-			setMsg(' Error de conexión con el servidor');
+			setMsg('❌ Error de conexión con el servidor');
 		} finally {
 			setLoading(false);
 		}
