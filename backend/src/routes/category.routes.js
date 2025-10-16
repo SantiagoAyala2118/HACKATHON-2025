@@ -1,7 +1,17 @@
 import { Router } from "express";
-import { authMiddleware } from "../middlewares/authMiddleware.js";
+//*CONTROLADORES
 import { addCategory } from "../controllers/category.controllers.js";
+//*MIDDLEWARES
+import { authMiddleware } from "../middlewares/authMiddleware.js";
+import { createCategoryValidations } from "../middlewares/validations/category.validations.js";
+import { validator } from "../middlewares/validator.js";
 
-export const categoryRoutes = Router()
+export const categoryRoutes = Router();
 
-categoryRoutes.post("/category", authMiddleware, addCategory)
+categoryRoutes.post(
+  "/category",
+  authMiddleware,
+  createCategoryValidations,
+  validator,
+  addCategory
+);
