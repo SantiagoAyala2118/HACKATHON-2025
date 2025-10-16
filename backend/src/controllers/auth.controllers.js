@@ -13,6 +13,8 @@ export const register = async (req, res) => {
 
     const newUser = new UserModel(validatedData);
 
+    await newUser.save()
+
     res.status(201).json({ ok: true, msg: "Te has registrado exitosamente!" });
   } catch (e) {
     if (e.code === 11000)
@@ -28,12 +30,12 @@ export const login = async (req, res) => {
   const { email, password } = matchedData(req);
 
   try {
-    const user = await UserModel.findOne({ email });
+    const user = await UserModel.findOne({ email: email });
 
     if (!user)
       return res.status(404).json({ ok: false, msg: "Ese usuario no existe." });
 
-    if (!(await bcrypt.compare(password, user.password)))
+    if (!await bcrypt.compare(password, user._doc.password))
       res.status(401).json({ ok: false, msg: "La contraseña es incorrecta" });
 
     const payload = {
@@ -46,7 +48,7 @@ export const login = async (req, res) => {
 
     res.cookie("token", token, cookieConfig);
 
-    const { password, ...secureUser } = user._doc;
+    const { password:userPassword, ...secureUser } = user._doc;
 
     res.status(200).json({
       ok: true,
