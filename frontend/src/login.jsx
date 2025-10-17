@@ -47,7 +47,7 @@ function AuthForm() {
                     setMsg(`❌ Error: ${data.msg || 'Credenciales incorrectas'}`);
                 }
             } else {
-                const userData = { email, password, nombre: name, rol: selectedOption }; 
+                const userData = { email, password, name: name, rol: selectedOption }; 
                 console.log('Objeto de Registro:', userData);
                 const response = await fetch('http://localhost:3000/api/auth/register', {
                     method: 'POST',

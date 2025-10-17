@@ -1,7 +1,6 @@
 // dashboard.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-// Importa cualquier librería de gráficos que uses (por ejemplo, Chart.js/Recharts)
 
 // Componente de Gráfico de Barras (ejemplo simple para simular el de la imagen)
 const BarChartExample = () => {
@@ -17,7 +16,7 @@ const BarChartExample = () => {
     return (
         <div className="p-4 bg-white rounded-xl shadow-lg border border-gray-100">
             <div className="flex items-end h-48 space-x-2 pt-8">
-                {/* Eje Y */}
+                
                 <div className="flex flex-col justify-between h-full text-xs text-gray-500 pr-2 border-r border-gray-200">
                     <span>20</span>
                     <span>15</span>
@@ -25,6 +24,7 @@ const BarChartExample = () => {
                     <span>5</span>
                     <span>0</span>
                 </div>
+                
                 {/* Barras del Gráfico */}
                 <div className="flex items-end h-full space-x-4 flex-grow">
                     {projects.map((project, index) => (
