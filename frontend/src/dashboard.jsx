@@ -1,6 +1,61 @@
 // dashboard.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import logo from './assets/logo-fondeAr.png';
+
+// Componente de Gráfico de Barras (ejemplo simple para simular el de la imagen)
+const BarChartExample = () => {
+    const projects = [
+        { name: 'foMedi', count: 8, color: 'bg-green-700' },
+        { name: 'sinFiltro', count: 12, color: 'bg-green-800' },
+        { name: 'ElectroAhorro', count: 16, color: 'bg-amber-800' },
+        { name: 'agoraLearn', count: 19, color: 'bg-orange-800' },
+    ];
+
+    const maxCount = 20;
+
+    return (
+        <div className="p-4 bg-white rounded-xl shadow-lg border border-gray-100">
+            <div className="flex items-end h-48 space-x-2 pt-8">
+                
+                <div className="flex flex-col justify-between h-full text-xs text-gray-500 pr-2 border-r border-gray-200">
+                    <span>20</span>
+                    <span>15</span>
+                    <span>10</span>
+                    <span>5</span>
+                    <span>0</span>
+                </div>
+                
+                {/* Barras del Gráfico */}
+                <div className="flex items-end h-full space-x-4 flex-grow">
+                    {projects.map((project, index) => (
+                        <div key={index} className="flex flex-col items-center justify-end h-full flex-grow group">
+                            <div
+                                className={`${project.color} w-full rounded-t-sm transition-all duration-500`}
+                                style={{ height: `${(project.count / maxCount) * 100}%` }}
+                            ></div>
+                            <span className="text-xs mt-1 text-gray-600 truncate max-w-[60px]">{project.name}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+            <h3 className="text-lg font-semibold text-center mt-4 text-amber-900 border-t border-amber-900/20 pt-2">
+                Proyectos Exitosos
+            </h3>
+        </div>
+    );
+};
+
+// Botones con Borde Degradado (
+const GradientButton = ({ text }) => (
+    <button className="w-full px-1 py-1 my-3 text-gray-800 font-medium rounded-xl shadow-inner bg-white border-2 border-transparent transition-all duration-300
+        bg-gradient-to-r from-emerald-900 via-amber-700 to-orange-900 p-[3px] hover:shadow-xl hover:scale-[1.02] active:scale-100">
+        <span className="flex justify-center items-center w-full h-full bg-white rounded-lg p-1">
+            {text}
+        </span>
+    </button>
+);
+
 
 function Dashboard() {
 	const navigate = useNavigate();
