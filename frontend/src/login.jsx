@@ -64,9 +64,30 @@ function AuthForm() {
 			if (isLoginView) {
 				setMsg('✅ ¡Login exitoso! Redirigiendo...');
 				if (data.token) localStorage.setItem('token', data.token);
-				setTimeout(() => navigate('/dashboard'), 1200);
+
+				// Determinar a qué dashboard redirigir según el rol
+				let dashboardRoute = '/dashboard'; // por defecto
+
+				if (data.user && data.user.rol) {
+					if (data.user.rol === 'opcion2' || data.user.rol === 'inversor') {
+						dashboardRoute = '/dashboard-inversor';
+					} else if (data.user.rol === 'opcion3' || data.user.rol === 'emprendedor') {
+						dashboardRoute = '/dashboard';
+					}
+				} else {
+					// Si no viene el rol del backend, usar el seleccionado en el formulario
+					if (selectedOption === 'opcion2') {
+						dashboardRoute = '/dashboard-inversor';
+					}
+				}
+
+				setTimeout(() => navigate(dashboardRoute), 1200);
 			} else {
 				setMsg('✅ ¡Usuario registrado exitosamente!');
+				// Guardar el rol en localStorage para uso futuro
+				if (selectedOption) {
+					localStorage.setItem('userRole', selectedOption);
+				}
 				setTimeout(() => setIsLoginView(true), 1400);
 			}
 		} catch (error) {
