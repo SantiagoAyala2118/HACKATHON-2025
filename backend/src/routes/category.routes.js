@@ -1,4 +1,5 @@
 import { Router } from "express";
+<<<<<<< HEAD
 //*CONTROLADORES
 import { addCategory } from "../controllers/category.controllers.js";
 //*MIDDLEWARES
@@ -17,3 +18,11 @@ categoryRoutes.post(
 );
 import { authMiddleware } from "../middlewares/authMiddleware.js";
 import { addCategory } from "../controllers/category.controllers.js";
+=======
+import { authMiddleware } from "../middlewares/authMiddleware.js";
+import { addCategory } from "../controllers/category.controllers.js";
+
+export const categoryRoutes = Router()
+
+categoryRoutes.post("/category", authMiddleware, addCategory)
+>>>>>>> origin/dev-matu

@@ -8,7 +8,12 @@ const router = Router();
 
 router.use(authRouter);
 router.use(projectRouter);
+<<<<<<< HEAD
 router.use(categoryRoutes);
 router.use(investmentRouter);
+=======
+router.use(categoryRoutes)
+router.use(investmentRouter)
+>>>>>>> origin/dev-matu
 
 export default router;
