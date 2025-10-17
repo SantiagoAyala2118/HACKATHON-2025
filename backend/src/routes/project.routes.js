@@ -40,7 +40,7 @@ projectRouter.delete(
   deleteProject
 );
 projectRouter.put(
-  "projects/:idProject",
+  "/projects/:idProject",
   authMiddleware,
   updateProjectValidations,
   validator,
