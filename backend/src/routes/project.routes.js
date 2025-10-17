@@ -9,6 +9,7 @@ import {
 } from "../controllers/project.controllers.js";
 import {
   createProjectValidations,
+  getProjectByCategoryValidations,
   getProjectByIdValidations,
   updateProjectValidations,
 } from "../middlewares/validations/project.validations.js";
@@ -23,7 +24,13 @@ projectRouter.post(
   validator,
   createProject
 );
-projectRouter.get("/projects/categories", authMiddleware, getProjectByCategory);
+projectRouter.get(
+  "/projects/categories",
+  authMiddleware,
+  getProjectByCategoryValidations,
+  validator,
+  getProjectByCategory
+);
 projectRouter.get("/projects", authMiddleware, getAllProjects);
 projectRouter.delete(
   "/projects/:idProject",
