@@ -30,44 +30,48 @@ function AuthForm() {
 		setMsg('');
 
 		try {
+			const url = isLoginView
+				? 'http://localhost:3001/api/auth/login'
+				: 'http://localhost:3001/api/auth/register';
+
+			const body = isLoginView
+				? { email, password }
+				: { email, password, name: name, rol: selectedOption };
+
+			const response = await fetch(url, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(body),
+				// credentials: 'include', // habilitar sólo si el backend usa cookies y CORS lo permite
+			});
+
+			// Intentar parsear JSON seguro
+			let data;
+			try {
+				data = await response.json();
+			} catch (err) {
+				const text = await response.text();
+				throw new Error(
+					`Respuesta no-JSON del servidor (status ${response.status}): ${text}`,
+				);
+			}
+
+			if (!response.ok) {
+				throw new Error(data.msg || `Error de servidor (${response.status})`);
+			}
+
+			// OK
 			if (isLoginView) {
-				const loginData = { email, password };
-				console.log('Objeto de Login:', loginData);
-				const response = await fetch('http://localhost:3001/api/auth/login', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify(loginData),
-					credentials: 'include',
-				});
-				const data = await response.json();
-				if (response.ok) {
-					setMsg('✅ ¡Login exitoso! Redirigiendo...');
-					if (data.token) localStorage.setItem('token', data.token);
-					setTimeout(() => {
-						navigate('/dashboard');
-					}, 1500);
-				} else {
-					setMsg(`❌ Error: ${data.msg || 'Credenciales incorrectas'}`);
-				}
+				setMsg('✅ ¡Login exitoso! Redirigiendo...');
+				if (data.token) localStorage.setItem('token', data.token);
+				setTimeout(() => navigate('/dashboard'), 1200);
 			} else {
-				const userData = { email, password, name: name, rol: selectedOption };
-				console.log('Objeto de Registro:', userData);
-				const response = await fetch('http://localhost:3001/api/auth/register', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify(userData),
-				});
-				const data = await response.json();
-				if (response.ok) {
-					setMsg('✅ ¡Usuario registrado exitosamente!');
-					setTimeout(() => setIsLoginView(true), 2000);
-				} else {
-					setMsg(`❌ Error: ${data.msg || 'Error en el registro'}`);
-				}
+				setMsg('✅ ¡Usuario registrado exitosamente!');
+				setTimeout(() => setIsLoginView(true), 1400);
 			}
 		} catch (error) {
-			console.error('Error en la petición:', error);
-			setMsg('❌ Error de conexión con el servidor');
+			console.error('handleSubmit error:', error);
+			setMsg(`❌ ${error.message || 'Error de conexión con el servidor'}`);
 		} finally {
 			setLoading(false);
 		}
