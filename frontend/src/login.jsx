@@ -42,13 +42,14 @@ function AuthForm() {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(body),
-			// credentials: 'include', // habilitar sólo si el backend usa cookies y CORS lo permite
+			credentials: 'include', // habilitar sólo si el backend usa cookies y CORS lo permite
 		});
 
 		// Intentar parsear JSON seguro
 		let data;
 		try {
 			data = await response.json();
+			console.log(data)
 		} catch (err) {
 			const text = await response.text();
 			throw new Error(
