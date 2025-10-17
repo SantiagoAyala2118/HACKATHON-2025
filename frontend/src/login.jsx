@@ -29,75 +29,74 @@ function AuthForm() {
 		setLoading(true);
 		setMsg('');
 
-	try {
-		const url = isLoginView
-			? 'http://localhost:3001/api/auth/login'
-			: 'http://localhost:3001/api/auth/register';
-
-		const body = isLoginView
-			? { email, password }
-			: { email, password, name: name, rol: selectedOption };
-
-		const response = await fetch(url, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(body),
-			credentials: 'include', // habilitar sólo si el backend usa cookies y CORS lo permite
-		});
-
-		// Intentar parsear JSON seguro
-		let data;
 		try {
-			data = await response.json();
-			console.log(data)
-		} catch (err) {
-			const text = await response.text();
-			throw new Error(
-				`Respuesta no-JSON del servidor (status ${response.status}): ${text}`,
-			);
-		}
+			const url = isLoginView
+				? 'http://localhost:3001/api/auth/login'
+				: 'http://localhost:3001/api/auth/register';
 
-		if (!response.ok) {
-			throw new Error(data.msg || `Error de servidor (${response.status})`);
-		}
+			const body = isLoginView
+				? { email, password }
+				: { email, password, name: name, rol: selectedOption };
 
-		// OK
-		if (isLoginView) {
-			setMsg('✅ ¡Login exitoso! Redirigiendo...');
-			if (data.token) localStorage.setItem('token', data.token);
+			const response = await fetch(url, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(body),
+				credentials: 'include',
+			});
 
-			// Determinar a qué dashboard redirigir según el rol
-			let dashboardRoute = '/dashboard'; // por defecto
+			let data;
+			try {
+				data = await response.json();
+				console.log(data);
+			} catch (err) {
+				const text = await response.text();
+				throw new Error(
+					`Respuesta no-JSON del servidor (status ${response.status}): ${text}`,
+				);
+			}
 
-			if (data.user && data.user.rol) {
-				if (data.user.rol === 'opcion2' || data.user.rol === 'inversor') {
-					dashboardRoute = '/dashboard-inversor';
-				} else if (data.user.rol === 'opcion3' || data.user.rol === 'emprendedor') {
-					dashboardRoute = '/dashboard';
+			if (!response.ok) {
+				throw new Error(data.msg || `Error de servidor (${response.status})`);
+			}
+
+			// OK
+			if (isLoginView) {
+				setMsg('✅ ¡Login exitoso! Redirigiendo...');
+				if (data.token) localStorage.setItem('token', data.token);
+
+				// Determinar a qué dashboard redirigir según el rol
+				let dashboardRoute = '/dashboard'; // por defecto
+
+				if (data.user && data.user.rol) {
+					if (data.user.rol === 'opcion2' || data.user.rol === 'inversor') {
+						dashboardRoute = '/dashboard-inversor';
+					} else if (data.user.rol === 'opcion3' || data.user.rol === 'emprendedor') {
+						dashboardRoute = '/dashboard';
+					}
+				} else {
+					// Si no viene el rol del backend, usar el seleccionado en el formulario
+					if (selectedOption === 'opcion2') {
+						dashboardRoute = '/dashboard-inversor';
+					}
 				}
+
+				setTimeout(() => navigate(dashboardRoute), 1200);
 			} else {
-				// Si no viene el rol del backend, usar el seleccionado en el formulario
-				if (selectedOption === 'opcion2') {
-					dashboardRoute = '/dashboard-inversor';
+				setMsg('✅ ¡Usuario registrado exitosamente!');
+				// Guardar el rol en localStorage para uso futuro
+				if (selectedOption) {
+					localStorage.setItem('userRole', selectedOption);
 				}
+				setTimeout(() => setIsLoginView(true), 1400);
 			}
-
-			setTimeout(() => navigate(dashboardRoute), 1200);
-		} else {
-			setMsg('✅ ¡Usuario registrado exitosamente!');
-			// Guardar el rol en localStorage para uso futuro
-			if (selectedOption) {
-				localStorage.setItem('userRole', selectedOption);
-			}
-			setTimeout(() => setIsLoginView(true), 1400);
+		} catch (error) {
+			console.error('handleSubmit error:', error);
+			setMsg(`❌ ${error.message || 'Error de conexión con el servidor'}`);
+		} finally {
+			setLoading(false);
 		}
-	} catch (error) {
-		console.error('handleSubmit error:', error);
-		setMsg(`❌ ${error.message || 'Error de conexión con el servidor'}`);
-	} finally {
-		setLoading(false);
-	}
-};
+	};
 
 	return (
 		// Fondo Degradado
