@@ -1,6 +1,7 @@
 // dashboard.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import logo from './assets/logo-fondeAr.png';
 
 // Componente de Gráfico de Barras (ejemplo simple para simular el de la imagen)
 const BarChartExample = () => {
@@ -45,10 +46,10 @@ const BarChartExample = () => {
     );
 };
 
-// Componente de Botones con Borde Degradado (simulando los de la izquierda de la imagen)
+// Botones con Borde Degradado (
 const GradientButton = ({ text }) => (
-    <button className="w-full px-4 py-3 my-2 text-gray-800 font-medium rounded-xl shadow-inner bg-white border-2 border-transparent transition-all duration-300
-        bg-gradient-to-r from-green-700 via-amber-700 to-orange-800 p-[3px] hover:shadow-xl hover:scale-[1.02] active:scale-100">
+    <button className="w-full px-1 py-1 my-3 text-gray-800 font-medium rounded-xl shadow-inner bg-white border-2 border-transparent transition-all duration-300
+        bg-gradient-to-r from-emerald-900 via-amber-700 to-orange-900 p-[3px] hover:shadow-xl hover:scale-[1.02] active:scale-100">
         <span className="flex justify-center items-center w-full h-full bg-white rounded-lg p-1">
             {text}
         </span>
@@ -66,7 +67,7 @@ function Dashboard() {
     const [newProjectDesc, setNewProjectDesc] = useState('');
 
     useEffect(() => {
-        // ... (Tu lógica de useEffect para cargar el usuario)
+
         const userData = localStorage.getItem('user');
         if (userData) {
             setUser(JSON.parse(userData));
@@ -93,34 +94,32 @@ function Dashboard() {
     ];
 
     const recentActivities = [
-        { action: 'Un inversor vio tu perfil', time: 'Hace 2 horas', icon: '👀' },
-        { action: 'Un inversor guardó tu proyecto', time: 'Hace 1 día', icon: '💾' },
-        { action: 'Un inversor comentó en tu proyecto', time: 'Hace 2 días', icon: '💬' },
-        { action: 'Un inversor compartió tu proyecto', time: 'Hace 3 días', icon: '🔗' },
+        { action: 'Un inversor vio tu perfil', time: 'Hace 2 horas', icon: '' },
+        { action: 'Un inversor guardó tu proyecto', time: 'Hace 1 día', icon: '' },
+        { action: 'Un inversor comentó en tu proyecto', time: 'Hace 2 días', icon: '' },
+        { action: 'Un inversor compartió tu proyecto', time: 'Hace 3 días', icon: '' },
     ];
 
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col">
             <header className="bg-white shadow-md p-4 flex justify-between items-center sticky top-0 z-10">
                 <div className="flex items-center space-x-4">
-                    {/* Placeholder para el Logo de la App */}
+                    {/*  Logo de la App */}
                     <div className="text-xl font-bold text-green-700">
-                        {/* El texto "aca va el logo de la app" se omite aquí ya que solo es un placeholder visual */}
-                        <span className="text-2xl">💡</span>{' '}
-                        <span className="hidden sm:inline">fondeAr</span>
+                        <img className='w-20' src={logo} alt="" />
                     </div>
                 </div>
 
                 {/* Botón Iniciar Sesión/Cerrar Sesión */}
                 <div className="flex items-center space-x-3">
-                    {/* Botón de la imagen (lo convertimos a Cerrar Sesión) */}
+                    
                     <button
-                        className="px-4 py-2 bg-green-700 text-white font-semibold rounded-lg shadow-md transition duration-200 hover:bg-green-800 active:scale-95"
+                        className="px-4 py-2 bg-gradient-to-r from-emerald-900 to-orange-900 text-white font-semibold rounded-lg shadow-md transition duration-200 hover:bg-green-800 active:scale-95"
                         onClick={handleLogout}
                     >
                         Cerrar Sesión
                     </button>
-                    {/* Info de Usuario (oculta en el diseño de la imagen, la mantenemos discreta) */}
+                    {/* Info de Usuario */}
                     <div className="hidden sm:flex items-center space-x-2">
                         <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-xs font-bold text-gray-600">
                             {user?.name?.[0] || 'U'}
@@ -133,7 +132,7 @@ function Dashboard() {
                 </div>
             </header>
 
-            {/* Menú de Navegación (similar a una barra lateral o tabs horizontales en móvil) */}
+            {/* Menú de Navegación  */}
             <nav className="bg-white shadow-inner border-t border-b border-gray-100 sticky top-16 z-10">
                 <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
                     <div className="flex justify-between space-x-1 sm:space-x-4 overflow-x-auto">
@@ -143,8 +142,8 @@ function Dashboard() {
                                 className={`
                                     py-3 px-3 sm:px-6 text-sm font-medium transition-colors duration-200 whitespace-nowrap
                                     ${activeTab === tab
-                                        ? 'border-b-4 border-green-700 text-green-800 font-bold'
-                                        : 'text-gray-600 hover:text-green-700 hover:bg-gray-50'
+                                        ? 'border-b-4 border-emerald-900 text-green-800 font-bold'
+                                        : 'text-emerald-900 hover:text-emerald-900 hover:bg-emerald-200 rounded-lg'
                                     }
                                 `}
                                 onClick={() => setActiveTab(tab)}
@@ -162,40 +161,38 @@ function Dashboard() {
             <main className="flex-grow p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto w-full">
                 {activeTab === 'inicio' && (
                     <div className="space-y-6">
-                        {/* Diseño basado en la imagen - Combinando elementos de la imagen con el contenido del dashboard */}
+                        
                         <div className="bg-white p-6 rounded-2xl shadow-xl border border-gray-100 grid grid-cols-1 lg:grid-cols-3 gap-6">
-                            {/* Bloque Izquierdo: Título y Botones Degradados */}
+                            
                             <div className="col-span-1 space-y-4">
                                 <h1 className="text-3xl font-extrabold text-gray-900">
-                                    Mi Dashboard
+                                    Mi Información
                                 </h1>
-                                <p className="text-xl font-medium text-gray-600">
+                                <p className="text-xl font-medium text-gray-900">
                                     Bienvenido, {user?.name || 'Emprendedor'}!
                                 </p>
-                                {/* Simulación de los botones degradados de la izquierda */}
-                                <div className="mt-6 space-y-3">
+                                {/* botones de la izquierda */}
+                                <div className="mt-4 space-y-2">
                                     <GradientButton text="Nuevo Inversor" />
                                     <GradientButton text="Ver Reporte" />
                                     <GradientButton text="Mi Reputación" />
                                 </div>
                             </div>
 
-                            {/* Bloque Derecho: Subtítulo y Gráfico */}
+                            {/* Subtítulo y Gráfico */}
                             <div className="col-span-2 space-y-4">
                                 <h2 className="text-2xl font-bold text-gray-800">
-                                    Añadir un subtítulo
+                                    
                                 </h2>
-                                <p className="text-gray-500 leading-relaxed">
-                                    Este es un espacio para un texto descriptivo,
-                                    similar a un resumen o una breve explicación de
-                                    la sección principal.
+                                <p className="text-gray-900 leading-relaxed">
+                                    
                                 </p>
                                 <BarChartExample />
                             </div>
                         </div>
 
-                        {/* Sección de Estadísticas (Grid) */}
-                        <h2 className="text-2xl font-semibold text-gray-800 pt-4">Resumen de Emprendimiento</h2>
+                        {/* Sección de Estadísticas */}
+                        <h2 className="text-2xl font-semibold text-gray-900 pt-4">Resumen de Emprendimiento</h2>
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                             {stats.map((stat, index) => (
                                 <div
@@ -226,7 +223,7 @@ function Dashboard() {
                                 </div>
                             </div>
 
-                            {/* Tarjeta de Metas Próximas */}
+                            {/* Metas Próximas */}
                             <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
                                 <h3 className="text-xl font-semibold text-gray-800 mb-4">Por concretarse (Metas)</h3>
                                 <div className="space-y-4">
@@ -252,7 +249,7 @@ function Dashboard() {
                     </div>
                 )}
 
-                {/* Otras pestañas (Estilos simples para contenido secundario) */}
+                {/* Otras pestañas  */}
                 {activeTab === 'metas' && (
                     <div className="tab-content p-6 bg-white rounded-xl shadow-lg space-y-4">
                         <h2 className="text-2xl font-bold text-gray-800">Inversores Activos</h2>
@@ -342,7 +339,7 @@ function Dashboard() {
             </main>
 
             {/* Footer */}
-            <footer className="bg-gray-800 text-white p-4 text-center mt-auto">
+            <footer className="bg-gradient-to-r from-emerald-900 to-orange-900 text-white p-4 text-center mt-auto">
                 <p className="text-sm">© 2025 fondeAr - Todos los derechos reservados</p>
             </footer>
         </div>

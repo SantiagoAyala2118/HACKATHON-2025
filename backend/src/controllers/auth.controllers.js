@@ -5,8 +5,14 @@ import { signToken } from "../helpers/jwt.helper.js";
 import { cookieConfig } from "../config/cookieConfig.js";
 
 export const register = async (req, res) => {
+console.log(req.body);
+
+
   const validatedData = matchedData(req);
 
+
+  console.log(validatedData);
+  
   try {
     validatedData.password = await hashPassword(validatedData.password);
 
@@ -15,7 +21,10 @@ export const register = async (req, res) => {
     await newUser.save();
 
     res.status(201).json({ ok: true, msg: "Te has registrado exitosamente!" });
+
   } catch (e) {
+    console.log(e);
+    
     if (e.code === 11000)
       res.status(400).json({
         ok: false,
