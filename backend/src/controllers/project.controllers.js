@@ -51,10 +51,12 @@ export const getAllProjects = async (req, res) => {
 };
 
 export const getProjectByCategory = async (req, res) => {
-  const categories = matchedData(req);
+  const { category } = matchedData(req);
 
   try {
-    const projects = await ProjectModel.find({ category: categories });
+    const projects = await ProjectModel.find({
+      category: { $in: category },
+    });
 
     if (!projects)
       return res.status(404).json({
@@ -64,6 +66,7 @@ export const getProjectByCategory = async (req, res) => {
 
     res.status(200).json({ ok: true, projects: projects });
   } catch (e) {
+    console.error("Error interno del servidor", e);
     res.status(500).json({ ok: false, msg: "Error interno del servidor" });
   }
 };

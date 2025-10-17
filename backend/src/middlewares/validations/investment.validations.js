@@ -1,7 +1,29 @@
 import { body, param } from "express-validator";
-import InvestmentModel from "../../models/investment.model.js";
+import { ProjectModel } from "../../models/project.model.js";
 
 export const createInvestmentValidations = [
+  body("project")
+    .trim()
+    .notEmpty()
+    .withMessage("Id del proyecto requerido")
+    .custom(async (value) => {
+      try {
+        const projectExisting = await ProjectModel.findById(value);
+
+        if (!projectExisting) {
+          return Promise.reject("Ese projecto no existe");
+        }
+      } catch (e) {
+        console.error("Error interno del servidor", e);
+        return Promise.reject("Error interno del servidor");
+      }
+    }),
+  body("amount")
+    .trim()
+    .notEmpty()
+    .withMessage("La cantidad de inversión requerida")
+    .isInt()
+    .withMessage("La cantidad de inversión debe ser un numero"),
   body("details")
     .optional()
     .trim()

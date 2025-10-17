@@ -32,6 +32,9 @@ export const createProjectValidations = [
     .withMessage("La inversión mínima aceptada es requerida")
     .matches(/^[0-9]+$/)
     .withMessage("Sólo se aceptan valores numéricos"),
+  body("category")
+    .isArray()
+    .withMessage("Las categorías deben pertenecer a un arreglo"),
 ];
 
 export const getProjectByIdValidations = [
@@ -47,6 +50,12 @@ export const getProjectByIdValidations = [
       return Promise.reject("Error interno del servidor");
     }
   }),
+];
+
+export const getProjectByCategoryValidations = [
+  body("category")
+    .isArray()
+    .withMessage("Las categorías deben pertenecer a un arreglo"),
 ];
 
 export const updateProjectValidations = [
