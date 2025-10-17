@@ -1,7 +1,6 @@
 // dashboard.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './dashboard.css'; // Crearemos este CSS después
 
 function Dashboard() {
 	const navigate = useNavigate();
@@ -75,6 +74,7 @@ function Dashboard() {
 					onClick={() => setActiveTab('inicio')}
 				>
 					Inicio
+					
 				</button>
 				<button
 					className={`nav-btn ${activeTab === 'metas' ? 'active' : ''}`}

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './landing.css';
 
 const handleDireccion = () => {
 	window.location.href = '/login'; // Redirige a la página de login
@@ -51,25 +50,26 @@ export const Landing = () => {
 	const maxValue = Math.max(...chartData.map((item) => item.value));
 
 	return (
-		<div className="landing-page">
+		<div className="landing-page min-h-screen bg-gray-50 text-gray-800">
 			{/* Header */}
-			<header className="landing-header">
-				<div className="header-content">
-					<div className="logo-section">
-						<div className="logo"></div>
-						<span className="logo-text">FondApp</span>
+			<header className="landing-header sticky top-0 z-10 bg-white shadow-md">
+				<div className="header-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+					<div className="logo-section flex items-center space-x-2">
+						<div className="rounded-full flex items-center justify-center text-white font-bold"></div>
+						<span className="logo-text text-xl font-bold text-gray-900">fondeAr</span>
 					</div>
-					<button className="login-btn" onClick={handleDireccion}>
-						Iniciar Sesión
-					</button>
+					<button className="login-btn py-2 px-4 bg-gradient-to-r from-emerald-900 to-orange-900 text-white font-semibold rounded-lg shadow-md hover:bg-emerald-800 transition duration-300" 
+                        onClick={handleDireccion}>
+                        Iniciar Sesión
+                    </button>
 				</div>
 			</header>
 
 			{/* Hero Section */}
-			<section className="hero-section">
-				<div className="hero-content">
+			<section className="hero-section py-16 sm:py-24">
+				<div className="hero-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-start">
 					{/* Columna Izquierda */}
-					<div className="left-column">
+					<div className="left-column space-y-12">
 						{/* Logo Cuadrado */}
 						<div className="logo-square">
 							<div className="logo-icon"></div>
