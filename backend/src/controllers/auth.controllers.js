@@ -1,7 +1,6 @@
 import { matchedData } from "express-validator";
 import UserModel from "../models/user.model.js";
-import { hashPassword } from "../helpers/bcrypt.helper.js";
-import bcrypt from "bcrypt";
+import { comparePassword, hashPassword } from "../helpers/bcrypt.helper.js";
 import { signToken } from "../helpers/jwt.helper.js";
 import { cookieConfig } from "../config/cookieConfig.js";
 
@@ -13,7 +12,7 @@ export const register = async (req, res) => {
 
     const newUser = new UserModel(validatedData);
 
-    await newUser.save()
+    await newUser.save();
 
     res.status(201).json({ ok: true, msg: "Te has registrado exitosamente!" });
   } catch (e) {
@@ -35,8 +34,17 @@ export const login = async (req, res) => {
     if (!user)
       return res.status(404).json({ ok: false, msg: "Ese usuario no existe." });
 
-    if (!await bcrypt.compare(password, user._doc.password))
-      res.status(401).json({ ok: false, msg: "La contraseña es incorrecta" });
+    // console.log(user);
+    // console.log(password);
+    // console.log(user.password);
+    const decodedPassword = await comparePassword(password, user.password);
+
+    if (!decodedPassword) {
+      return res.status(404).json({ ok: false, msg: "Contraseña inorrecta" });
+    }
+
+    // if (!(await bcrypt.compare(password, user._doc.password)))
+    //   res.status(401).json({ ok: false, msg: "La contraseña es incorrecta" });
 
     const payload = {
       sub: user._id,
@@ -48,7 +56,7 @@ export const login = async (req, res) => {
 
     res.cookie("token", token, cookieConfig);
 
-    const { password:userPassword, ...secureUser } = user._doc;
+    const { password: userPassword, ...secureUser } = user._doc;
 
     res.status(200).json({
       ok: true,
@@ -56,6 +64,7 @@ export const login = async (req, res) => {
       data: secureUser,
     });
   } catch (e) {
+    console.error("Error interno del servidor", e);
     res.status(500).json({ ok: false, msg: "error interno del servidor" });
   }
 };
@@ -63,6 +72,10 @@ export const login = async (req, res) => {
 export const logout = async (req, res) => {
   try {
     res.clearCookie("token");
+    return res.status(204).json({
+      ok: true,
+      msg: "Deslogueado correctamente",
+    });
   } catch (e) {
     res.status(500).json({ ok: false, msg: "error interno del servidor" });
   }
