@@ -45,4 +45,10 @@ export const loginValidations = [
     .withMessage("Email requerido")
     .isEmail()
     .withMessage("El formato del email no es correcto"),
+  body("password")
+    .trim()
+    .notEmpty()
+    .withMessage("Contraseña requerida")
+    .isLength({ min: 6 })
+    .withMessage("Debe contener al menos 6 caracteres"),
 ];
