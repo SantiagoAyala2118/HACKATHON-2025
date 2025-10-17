@@ -1,7 +1,17 @@
 import { Router } from "express";
-import { login, register } from "../controllers/auth.controllers.js";
+//* CONTROLADORES
+import { login, logout, register } from "../controllers/auth.controllers.js";
 
-export const authRouter = Router()
+//* MIDDLEWARES
+import { authMiddleware } from "../middlewares/authMiddleware.js";
+import {
+  registerValidations,
+  loginValidations,
+} from "../middlewares/validations/auth.validations.js";
+import { validator } from "../middlewares/validator.js";
 
-authRouter.post("/auth/register", register)
-authRouter.post("/auth/login", login)
+export const authRouter = Router();
+
+authRouter.post("/auth/register", registerValidations, validator, register);
+authRouter.post("/auth/login", loginValidations, validator, login);
+authRouter.post("/auth/logout", authMiddleware, logout);

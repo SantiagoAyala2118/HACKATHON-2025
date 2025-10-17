@@ -1,18 +1,44 @@
-import mongoose, { mongo } from "mongoose";
+import { Schema, model } from "mongoose";
 
-export const UserSchema = new mongoose.Schema({
-    nombre_completo: {
-        type: String
+const UserSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
     },
     email: {
-        type: String,
-        required: true,
-        unique: true
+      type: String,
+      required: true,
     },
     password: {
-        type: String,
-        required: true
-    }
-})
+      type: String,
+      required: true,
+    },
+    role: {
+      type: String,
+      enum: ["emprendedor", "inversor"],
+    },
+    biography: {
+      type: String,
+    },
+    projects: {
+      type: [Schema.Types.ObjectId],
+      ref: "Project",
+    },
+    investmenst: {
+      type: [Schema.Types.ObjectId],
+      ref: "Investments",
+    },
+    category: {
+      type: [Schema.Types.ObjectId],
+      ref: "Category",
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-export const UserModel = mongoose.model("User", UserSchema)
+const UserModel = model("User", UserSchema);
+
+export default UserModel;
