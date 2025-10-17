@@ -10,10 +10,8 @@ import {
 } from "../middlewares/validations/auth.validations.js";
 import { validator } from "../middlewares/validator.js";
 
-const authRouter = Router();
+export const authRouter = Router();
 
-authRouter.post("/register", registerValidations, validator, register);
-authRouter.post("/login", loginValidations, validator, login);
-authRouter.post("/logout", authMiddleware, logout);
-
-export default authRouter;
+authRouter.post("/auth/register", registerValidations, validator, register);
+authRouter.post("/auth/login", loginValidations, validator, login);
+authRouter.post("/auth/logout", authMiddleware, logout);
