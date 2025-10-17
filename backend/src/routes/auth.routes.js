@@ -1,12 +1,4 @@
 import { Router } from "express";
-<<<<<<< HEAD
-import { login, register } from "../controllers/auth.controllers.js";
-
-export const authRouter = Router()
-
-authRouter.post("/auth/register", register)
-authRouter.post("/auth/login", login)
-=======
 //* CONTROLADORES
 import { login, logout, register } from "../controllers/auth.controllers.js";
 
@@ -23,4 +15,3 @@ export const authRouter = Router();
 authRouter.post("/auth/register", registerValidations, validator, register);
 authRouter.post("/auth/login", loginValidations, validator, login);
 authRouter.post("/auth/logout", authMiddleware, logout);
->>>>>>> dev-santi
