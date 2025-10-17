@@ -6,7 +6,7 @@ export const registerValidations = [
     .trim()
     .notEmpty()
     .withMessage("Nombre requerido")
-    .matches(/^[A-Za-zÁÉÍÓÚáéíóúÑñ]+$/)
+    .matches(/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/)
     .withMessage("El nombre debe contener sólo letras"),
   body("email")
     .trim()
