@@ -8,7 +8,9 @@ const router = Router();
 
 router.use(authRouter);
 router.use(projectRouter);
-router.use(categoryRoutes)
-router.use(investmentRouter)
+router.use(categoryRoutes);
+router.use(investmentRouter);
+router.use(categoryRoutes);
+router.use(investmentRouter);
 
 export default router;
